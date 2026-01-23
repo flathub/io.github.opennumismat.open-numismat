@@ -40,8 +40,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/OpenNumismat/open-numismat.git
-        tag: 1.10.3
-        commit: 6de8bf528e5be3723fba3d3376a22343ea4e03ff
+        tag: 1.10.4
+        commit: 1d1b4191d150beed4e19cac230e1d6aa9f4241d9
         x-checker-data:
           type: json
           url: https://api.github.com/repos/OpenNumismat/open-numismat/releases/latest
