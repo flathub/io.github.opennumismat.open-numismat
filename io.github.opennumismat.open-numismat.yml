@@ -1,13 +1,12 @@
 app-id: io.github.opennumismat.open-numismat
 runtime: org.kde.Platform
-runtime-version: '6.8'
+runtime-version: '6.10'
 sdk: org.kde.Sdk
 base: io.qt.PySide.BaseApp
-base-version: '6.8'
-cleanup-commands:
-  - /app/cleanup-BaseApp.sh
+base-version: '6.10'
 command: open-numismat
-
+rename-icon: open-numismat
+rename-desktop-file: open-numismat.desktop
 finish-args:
   - --share=ipc
   - --socket=fallback-x11
@@ -19,24 +18,32 @@ finish-args:
   - --device=dri
   - --env=QTWEBENGINEPROCESS_PATH=/app/bin/QtWebEngineProcess
   - --env=TMPDIR=/var/tmp
-
 cleanup:
   - /include
   - /lib/pkgconfig
-
+cleanup-commands:
+  - /app/cleanup-BaseApp.sh
 modules:
   - python3-requirements.json
+
+  # Required dependencies provided in python3-requirements.yaml
+  - name: python3-imagehash
+    buildsystem: simple
+    build-commands:
+      - pip3 install --no-build-isolation --prefix=/app --no-deps .
+    sources:
+      - type: git
+        url: https://github.com/OpenNumismat/imagehash.git
+        commit: c4cf6a777f7e9c414e7f30b558130c5b2a98297f
 
   - name: open-numismat
     buildsystem: simple
     build-commands:
       - pip3 install --no-build-isolation --prefix=/app --no-deps .
-      - install -Dm644 open-numismat.desktop /app/share/applications/${FLATPAK_ID}.desktop
-      - install -Dm644 open-numismat.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
-      - install -Dm644 open-numismat.png /app/share/icons/hicolor/48x48/apps/${FLATPAK_ID}.png
-      - install -Dm644 io.github.opennumismat.open-numismat.metainfo.xml /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
-      - desktop-file-edit --set-key=Exec --set-value=open-numismat /app/share/applications/${FLATPAK_ID}.desktop
-      - desktop-file-edit --set-icon=${FLATPAK_ID} /app/share/applications/${FLATPAK_ID}.desktop
+      - desktop-file-edit --set-key=Exec --set-value=open-numismat open-numismat.desktop
+      - install -Dm644 open-numismat.desktop -t /app/share/applications/
+      - install -Dm644 open-numismat.svg -t /app/share/icons/hicolor/scalable/apps/
+      - install -Dm644 io.github.opennumismat.open-numismat.metainfo.xml -t /app/share/metainfo/
     sources:
       - type: git
         url: https://github.com/OpenNumismat/open-numismat.git
