@@ -1,0 +1,13 @@
+# Use the following command to regenerate Python modules
+# flatpak-pip-generator --runtime=org.kde.Sdk//6.10 -r requirements.txt --prefer-wheels=numpy,opencv-python-headless
+
+pybind11
+meson-python
+jinja2
+lxml
+opencv-python-headless
+openpyxl
+numpy
+pillow
+python-dateutil
+urllib3
