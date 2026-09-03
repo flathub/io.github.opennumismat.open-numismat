@@ -27,6 +27,16 @@ cleanup-commands:
 modules:
   - python3-requirements.json
 
+  # Required dependencies provided in python3-requirements.json
+  - name: python3-imagehash
+    buildsystem: simple
+    build-commands:
+      - pip3 install --no-build-isolation --prefix=/app --no-deps .
+    sources:
+      - type: git
+        url: https://github.com/OpenNumismat/imagehash.git
+        commit: f8f8f7da4e85a259767cac49f515e2b1a3f89263
+
   - name: open-numismat
     buildsystem: simple
     build-commands:
