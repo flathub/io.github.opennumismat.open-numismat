@@ -1,11 +1,9 @@
 app-id: io.github.opennumismat.open-numismat
 runtime: org.kde.Platform
-runtime-version: '6.8'
+runtime-version: '6.11'
 sdk: org.kde.Sdk
 base: io.qt.PySide.BaseApp
-base-version: '6.8'
-cleanup-commands:
-  - /app/cleanup-BaseApp.sh
+base-version: '6.11'
 command: open-numismat
 
 finish-args:
@@ -23,9 +21,21 @@ finish-args:
 cleanup:
   - /include
   - /lib/pkgconfig
+cleanup-commands:
+  - /app/cleanup-BaseApp.sh
 
 modules:
   - python3-requirements.json
+
+  # Required dependencies provided in python3-requirements.json
+  - name: python3-imagehash
+    buildsystem: simple
+    build-commands:
+      - pip3 install --no-build-isolation --prefix=/app --no-deps .
+    sources:
+      - type: git
+        url: https://github.com/OpenNumismat/imagehash.git
+        commit: f8f8f7da4e85a259767cac49f515e2b1a3f89263
 
   - name: open-numismat
     buildsystem: simple
