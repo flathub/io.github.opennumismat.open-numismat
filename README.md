@@ -16,3 +16,11 @@ This package uses the flags to run on Wayland. To opt-out it run:
 ```sh
 flatpak override --user --nosocket=wayland io.github.opennumismat.open-numismat
 ```
+
+## Development
+
+Use the following command to regenerate Python modules:
+
+```sh
+flatpak-pip-generator --runtime=org.kde.Sdk//6.11 -r requirements.txt --prefer-wheels=numpy,opencv-python-headless,zxing-cpp,scipy
+```
